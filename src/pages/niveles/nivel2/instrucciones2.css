@@ -1,0 +1,36 @@
+.instrucciones-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    text-align: left;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.instrucciones-container h3 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.instrucciones-container p {
+    font-size: 18px;
+    margin-bottom: 15px;
+    line-height: 1.4;
+}
+
+.boton-jugar {
+    background-color: #007bff;
+    color: #fff;
+    font-size: 20px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.boton-jugar:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+}

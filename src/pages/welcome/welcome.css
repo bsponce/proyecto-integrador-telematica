@@ -1,0 +1,56 @@
+@import url('https://fonts.googleapis.com/css2?family=Rammetto+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;600;700&display=swap');
+
+*{
+    box-sizing: border-box;/* puede ser útil para mantener un mejor control sobre el diseño y el posicionamiento de los elementos en una página*/
+}
+body {
+   
+    /*text-align: center;
+    font-family: Arial, sans-serif;
+    background-color: #f2f2f2;*/
+    font-family: 'Rajdhani'; /*Establece la fuente de la familia de fuentes a utilizar para el texto dentro del <body>*/
+    background-image: url('../../images/fondo.jpg'); /*imagen de fondo*/
+    background-repeat: no-repeat;
+    background-attachment: fixed;/*Fija la posición de la imagen de fondo para que no se desplace al hacer scroll en la página.*/
+    background-size: cover;/*Ajusta automáticamente el tamaño de la imagen de fondo para cubrir completamente el área del <body>*/
+  }
+  
+#text1 {
+    color: black;
+    margin-top: 14.5px;
+    text-align: center;
+    width: 85%;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 21.5px;
+    margin-bottom: 24.5px;
+  }
+
+
+  #pantalla-inicial{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center !important;
+    height: 55vh;/*largo del cuado*/
+
+    display: block;
+    max-width: 700px;/*ancho del cuadro*/
+    margin: 100px auto; /*subir y bajar el cuadro*/
+    text-align: center;
+    background:rgba(255, 255, 255, 0.7);
+    padding: 2.5px;
+    border: 2px solid #000;
+    border-radius: 20px;
+}
+#bienvenido{
+    margin-bottom: 20px; /*mover boton*/
+    padding: 25px 80px; /*mover texto "subnet master"*/
+    font-family: 'Rammetto One';
+    font-size: 50px;
+    color:#4a68e0;
+    -webkit-text-stroke: 0.1px #000; /* Color y grosor del contorno */
+
+
+}
