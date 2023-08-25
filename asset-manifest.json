@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/proyecto-integrador-telematica/static/css/main.c42b9462.css",
+    "main.js": "/proyecto-integrador-telematica/static/js/main.c44e3bcc.js",
+    "static/js/787.63133f58.chunk.js": "/proyecto-integrador-telematica/static/js/787.63133f58.chunk.js",
+    "static/media/imagen1.jpg": "/proyecto-integrador-telematica/static/media/imagen1.df0a4225fe599e16e462.jpg",
+    "static/media/fondo.jpg": "/proyecto-integrador-telematica/static/media/fondo.df691c630c4c7b48695c.jpg",
+    "static/media/imagen3.jpg": "/proyecto-integrador-telematica/static/media/imagen3.cbdfc2fcf72c3e68d57b.jpg",
+    "static/media/imagen4.jpg": "/proyecto-integrador-telematica/static/media/imagen4.cbdfc2fcf72c3e68d57b.jpg",
+    "static/media/imagen2.jpg": "/proyecto-integrador-telematica/static/media/imagen2.dc6a053343c58209f450.jpg",
+    "static/media/pista1.jpg": "/proyecto-integrador-telematica/static/media/pista1.7c4610ef92f428fcb463.jpg",
+    "static/media/pista4.jpg": "/proyecto-integrador-telematica/static/media/pista4.21254fe87c080a08214e.jpg",
+    "index.html": "/proyecto-integrador-telematica/index.html",
+    "main.c42b9462.css.map": "/proyecto-integrador-telematica/static/css/main.c42b9462.css.map",
+    "main.c44e3bcc.js.map": "/proyecto-integrador-telematica/static/js/main.c44e3bcc.js.map",
+    "787.63133f58.chunk.js.map": "/proyecto-integrador-telematica/static/js/787.63133f58.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.c42b9462.css",
+    "static/js/main.c44e3bcc.js"
+  ]
+}
