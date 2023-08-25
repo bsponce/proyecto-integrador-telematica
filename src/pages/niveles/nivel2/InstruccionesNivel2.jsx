@@ -23,3 +23,4 @@ export default function InstruccionesNivel2() {
         </div>
     );
 }
+    

@@ -23,16 +23,16 @@ export default function Nivel3() {
     const history = useNavigate();
     const location = useLocation()
 
-    const [tiempo, setTiempo] = useState(45)
-    const [uid, setUid] = useState('')
-    let tiempoA = 45
+    // const [tiempo, setTiempo] = useState(45)
+    // const [uid, setUid] = useState('')
+    // let tiempoA = 45
 
     const [puntaje, setPuntaje] = useState(0)
     let puntajeTemp = location.state.puntos
 
 
     useEffect(() => {
-        setUid(location.state.uid);
+        // setUid(location.state.uid);
         setPuntaje(location.state.puntos)        
     }, [])
 
@@ -44,9 +44,9 @@ export default function Nivel3() {
     }
 
 
-    const [sala, setSala] = useState('')
-    const [estado, setEstado] = useState('')
-    const [respuestas, setRespuestas] = useState(['', ''])
+    // const [sala, setSala] = useState('')
+    // const [estado, setEstado] = useState('')
+    // const [respuestas, setRespuestas] = useState(['', ''])
 
     const [preguntaActual, setPreguntaActual] = useState(0)
     let preguntaActualTemp = 0;
@@ -108,7 +108,6 @@ export default function Nivel3() {
 
 
 
-
     const checkAnswer = (index) => {
         if (questions[preguntaActual].correctAnswer === index) {
 
@@ -137,29 +136,26 @@ export default function Nivel3() {
             })
         }
 
-
-
-        console.log('puntaje: ', puntaje, puntajeTemp)
+        //console.log('puntaje: ', puntaje, puntajeTemp)
     }
 
 
 
+    // const validarSalaPage = async () => {
+    //     let respuesta = await validarSala(sala)
+    //     setEstado(respuesta)
 
-    const validarSalaPage = async () => {
-        let respuesta = await validarSala(sala)
-        setEstado(respuesta)
-
-        if (respuesta.length === 0) {
-            Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: 'No existe ese id aun...',
-            })
-        } else {
-            let data = { Usuario: 'Stalyn', Cargo: 'Estudiante', ID: sala }
-            agregarUsuarioParticipante(data)
-        }
-    }
+    //     if (respuesta.length === 0) {
+    //         Swal.fire({
+    //             icon: 'error',
+    //             title: 'Oops...',
+    //             text: 'No existe ese id aun...',
+    //         })
+    //     } else {
+    //         let data = { Usuario: 'Stalyn', Cargo: 'Estudiante', ID: sala }
+    //         agregarUsuarioParticipante(data)
+    //     }
+    // }
 
 
 
