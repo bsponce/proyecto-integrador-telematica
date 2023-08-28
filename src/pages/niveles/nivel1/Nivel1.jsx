@@ -13,8 +13,8 @@ import { tiempoNivel1 } from "../../../variables"
 
 export default function Nivel1() {
 
-  const history = useNavigate();
-  const location = useLocation()
+  const history = useNavigate(); // Función para navegar entre rutas
+  const location = useLocation(); // Objeto que contiene información sobre la ubicación
 
   const [tiempo, setTiempo] = useState(tiempoNivel1)
   const [uid, setUid] = useState('')
@@ -26,12 +26,13 @@ export default function Nivel1() {
   const [puntaje, setPuntaje] = useState(0)
   let puntajeTemp = 0
 
-
+  
+  // useEffect se ejecuta al cargar el componente
   useEffect(() => {
-    setUid(location.state.uid);
+    setUid(location.state.uid);  // Asigna el UID desde la ubicación
   }, [])
 
-
+  // Función para actualizar los datos del usuario al finalizar el nivel
   const actualizarUsuario = () => {
     console.log("actualizar: ", puntaje, puntajeTemp);
 
@@ -195,23 +196,23 @@ export default function Nivel1() {
 
 
 
-  const validarSalaPage = async () => {
-    let respuesta = await validarSala(sala)
-    setEstado(respuesta)
+  // const validarSalaPage = async () => {
+  //   let respuesta = await validarSala(sala)
+  //   setEstado(respuesta)
 
-    if (respuesta.length === 0) {
+  //   if (respuesta.length === 0) {
 
-      Swal.fire({
-        icon: 'error',
-        title: 'Oops...',
-        text: 'No existe ese id aun...',
-      })
+  //     Swal.fire({
+  //       icon: 'error',
+  //       title: 'Oops...',
+  //       text: 'No existe ese id aun...',
+  //     })
 
-    } else {
-      let data = { Usuario: 'Stalyn', Cargo: 'Estudiante', ID: sala }
-      agregarUsuarioParticipante(data)
-    }
-  }
+  //   } else {
+  //     let data = { Usuario: 'Stalyn', Cargo: 'Estudiante', ID: sala }
+  //     agregarUsuarioParticipante(data)
+  //   }
+  // }
 
 
 
@@ -249,7 +250,6 @@ export default function Nivel1() {
 
         console.log(preguntaActual, questions.length, preguntaActualTemp, puntaje, puntajeTemp, document.getElementById("puntaje"), puntaje.current, tiempoHola)
         if (preguntaActual === questions.length) {
-          console.log('holati')
           clearInterval(interval)
         }
 
@@ -277,12 +277,27 @@ export default function Nivel1() {
 
   return (
     <>
-      <div align='center'>
-
-        <div align='center' style={{ backgroundColor: '#97CBEB', width: '105.5px', marginLeft: 'auto', marginRight: 'auto', marginTop: '24.5px', borderRadius: '7.5px', padding: '3.5px' }}>
-          <p style={{ fontSize: '24.5px' }}>Puntaje <br /><b>{puntaje}</b></p>
+      <div align="center">
+        {/* Bloque para mostrar el puntaje */}
+        <div
+          align="center"
+          style={{
+            backgroundColor: "#97CBEB",
+            width: "105.5px",
+            marginLeft: "auto",
+            marginRight: "auto",
+            marginTop: "24.5px",
+            borderRadius: "7.5px",
+            padding: "3.5px",
+          }}
+        >
+          <p style={{ fontSize: "24.5px" }}>
+            Puntaje <br />
+            <b>{puntaje}</b>
+          </p>
         </div>
 
+        {/* Bloque para mostrar la pregunta y opciones */}
         <div align="center" style={{}}>
           <div
             style={{
@@ -290,11 +305,10 @@ export default function Nivel1() {
               width: "59.5%",
               borderRadius: "24.5px",
               marginTop: "37.5px",
-              //marginleft: "125px",
-              //marginRight: "75px",
               paddingBottom: "14.5px",
             }}
           >
+            {/* Temporizador */}
             <Button
               disabled={true}
               style={{
@@ -314,6 +328,7 @@ export default function Nivel1() {
               <p style={{ color: "black" }}>{tiempo}</p>
             </Button>
 
+            {/* Texto de la pregunta */}
             <div id="instrucciones-texto">
               <p
                 style={{
@@ -328,13 +343,16 @@ export default function Nivel1() {
               >
                 {preguntaActual + 1 + ") "} {questions[preguntaActual].question}
               </p>
+
+              {/* Opciones de respuesta */}
               <div>
                 {questions[preguntaActual].answers.map((respuesta, index) => (
                   <div>
+                    {/* Botón para seleccionar la respuesta */}
                     <Button
                       className="botonOpcion"
                       style={{
-                        width: "475px",//respuesta.length > 28 ? "475px" : "375px",
+                        width: "475px", //respuesta.length > 28 ? "475px" : "375px",
                       }}
                       onClick={() => {
                         checkAnswer(index);
@@ -351,6 +369,7 @@ export default function Nivel1() {
       </div>
     </>
   );
+  
 
 
 }

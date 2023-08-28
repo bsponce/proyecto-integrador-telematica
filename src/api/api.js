@@ -24,8 +24,8 @@ const analytics = getAnalytics(app);
 const db = getFirestore(app);
 
 
-
-export const validarSala = async(id) => {
+//Busca los documentos en la colección "Sesiones" d Firestore q tengan un campo "ID" igual al valor proporcionado 
+export const validarSala = async(id) => {   //Luego recopila y retorna los datos d esos documentos en un arreglo
     const collection_ref =  collection(db, "Sesiones")
     const query_ref = query(collection_ref, where("ID", "==", id))
     const datos = await getDocs(query_ref)
@@ -33,22 +33,25 @@ export const validarSala = async(id) => {
     let dataFinal = []
 
     datos.forEach((doc) => {
-      // doc.data() is never undefined for query doc snapshots
       dataFinal.push(doc.data())
     });
 
     return dataFinal;
 }
 
+//agrega un nuevo documento con los datos proporcionados a la colección "Participantes" en la bd Firestore
 export const agregarUsuarioParticipante = async(data) => {
   let dataRef = await addDoc(collection(db, "Participantes"), data);
-  return dataRef.id
+  return dataRef.id  //retorna el ID del documento recién agregado
 }
 
+//Agrega un nuevo documento con los datos proporcionados a la colección "Sesiones"
 export const crearId = async(data) => {
   await addDoc(collection(db, "Sesiones"), data)
 }
 
+
+//se utiliza para obtener los datos de los participantes q tienen un campo "ID" igual al valor proporcionado.
 export const verParticipantes = async(id) => {
 
   const collection_ref =  collection(db, "Participantes")
@@ -58,7 +61,6 @@ export const verParticipantes = async(id) => {
     let dataFinal = []
 
     datos.forEach((doc) => {
-      // doc.data() is never undefined for query doc snapshots
       dataFinal.push(doc.data())
     });
 
@@ -69,6 +71,8 @@ export const verParticipantes = async(id) => {
   //return [{Usuario: 'Stalyn'}]
 }
 
+
+//se utiliza para actualizar los valores de nivel y calificación de un doc específico de la colección "Participantes"
 export const actualizarParticipante = async(id, calificacion, nivel) => {
   console.log('datos: ', id, calificacion, nivel)
   const docRef = doc(db, 'Participantes', id)
