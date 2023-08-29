@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/static/css/main.99a8f4a6.css",
+    "main.js": "/static/js/main.89bc6152.js",
+    "static/js/787.63133f58.chunk.js": "/static/js/787.63133f58.chunk.js",
+    "static/media/imagen1.jpg": "/static/media/imagen1.df0a4225fe599e16e462.jpg",
+    "static/media/fondo.jpg": "/static/media/fondo.df691c630c4c7b48695c.jpg",
+    "static/media/imagen3.jpg": "/static/media/imagen3.cbdfc2fcf72c3e68d57b.jpg",
+    "static/media/imagen4.jpg": "/static/media/imagen4.cbdfc2fcf72c3e68d57b.jpg",
+    "static/media/imagen2.jpg": "/static/media/imagen2.dc6a053343c58209f450.jpg",
+    "static/media/pista1.jpg": "/static/media/pista1.7c4610ef92f428fcb463.jpg",
+    "static/media/pista4.jpg": "/static/media/pista4.21254fe87c080a08214e.jpg",
+    "index.html": "/index.html",
+    "main.99a8f4a6.css.map": "/static/css/main.99a8f4a6.css.map",
+    "main.89bc6152.js.map": "/static/js/main.89bc6152.js.map",
+    "787.63133f58.chunk.js.map": "/static/js/787.63133f58.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.99a8f4a6.css",
+    "static/js/main.89bc6152.js"
+  ]
+}
