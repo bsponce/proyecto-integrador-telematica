@@ -2,14 +2,10 @@ import React, { useEffect } from "react";
 import "./welcome.css";
 import { useNavigate } from "react-router-dom";
 
-//import axios from 'axios'
-
 export default function Welcome() {
+
   const history = useNavigate();
 
-  //useEffect(async () =>  {
-  //onsole.log(await axios.get('https://geolocation-db.com/json/'))
-  //})
 
   return (
     <>
@@ -26,7 +22,7 @@ export default function Welcome() {
               borderRadius: "7.5px",
               borderColor: "transparent",
               height: "49.5px",
-              backgroundColor: "red",
+              backgroundColor: "#404F84 ",
             }}
             onClick={() => {
               history("/login");

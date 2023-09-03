@@ -1,7 +1,8 @@
+
 import React, { useState, useEffect } from 'react'
 import './nivel2.css'
-import { Container, Col, Row, Button } from 'react-bootstrap';
-import { validarSala, agregarUsuarioParticipante, actualizarParticipante } from '../../../api/api';
+import { Col, Row, Button } from 'react-bootstrap';
+import { actualizarParticipante } from '../../../api/api';
 
 import pista1 from './pista1.jpg'
 import pista2 from './pista2.jpg'
@@ -21,12 +22,17 @@ import Swal from 'sweetalert2/dist/sweetalert2.js'
 import 'sweetalert2/src/sweetalert2.scss'
 
 import arrayShuffle from 'array-shuffle';
+import { FcAlarmClock } from 'react-icons/fc';
+
 
 export default function Nivel2() {
 
-
     const location = useLocation()
     const history = useNavigate()
+
+    const [tiempoRestante, setTiempoRestante] = useState(20);
+    const [puntuacion, setPuntuacion] = useState(location.state.puntos);
+
 
     let arrayPasos = [
       { text: "1: ", respuesta: "", idRespuesta: 0 },
@@ -49,6 +55,7 @@ export default function Nivel2() {
       { text: "Calcular la cantidad de hosts por subred", id: 6 },
       { text: "Asignar direcciones IP a dispositivos", id: 7 },
     ];
+
     let arrayRespuestas = [];
 
     const [arrayImagenes, setArrayImagenes] = useState([
@@ -69,16 +76,30 @@ export default function Nivel2() {
     ]);
 
 
-    useEffect(() => {
-        setArrayPreguntasSet(arrayShuffle(arrayPreguntasSet))
-        
+    useEffect(() => { // Efecto para barajar las preguntas al cargar el componente
+        setArrayPreguntasSet(arrayShuffle(arrayPreguntasSet))        
     }, [])
 
+    useEffect(() => {
+      const interval = setInterval(() => {
+        if (tiempoRestante > 0) {
+          setTiempoRestante(tiempoRestante - 1);
+        } else {
+          clearInterval(interval); // Detener el temporizador cuando llegue a cero
+          verificarResultados();
+        }
+      }, 1000); // Actualizar cada segundo
+    
+      // Limpia el temporizador cuando el componente se desmonta
+      return () => clearInterval(interval);
+    }, [tiempoRestante]); // Ejecutar el efecto cuando el tiempo restante cambia
+    
 
+
+
+    // Función para mostrar una pista en un modal con Swal
     const mostrarPista = (index) => {
-
-        Swal.fire({
-            
+        Swal.fire({     // Configuración de estilo del modal          
             color: 'transparent',
             background: 'transparent',
             showConfirmButton: false,
@@ -92,57 +113,57 @@ export default function Nivel2() {
     }
 
 
-
+    
+    //Función para rellenar una respuesta en el array y mostrar en caso de completar todas las respuestas
     const rellenarRespuesta = (indice, texto, valor) => {
-
-        if(array.length < arrayPreguntas.length){
-            arrayRespuestas.push(texto)
-            let temp = [ ...array ]
-            let data = {text: texto, id: valor}
-            
-            temp.push(data)
-            
-            setArray(temp)
-        }else{
-            alert('listo')
-        }        
+      if (array.length < arrayPreguntas.length) {
+          arrayRespuestas.push(texto); // Agrega la respuesta al array de respuestas
+          let temp = [...array]; // Crea una copia del array actual
+          let data = { text: texto, id: valor }; //Crea un objeto de datos con el texto y el ID de la pregunta
+          
+          temp.push(data); //Agrega el objeto de datos al array temporal
+          
+          setArray(temp); //Actualiza el estado del array
+      } else {
+          alert('listo'); //Muestra una alerta si todas las respuestas ya están llenas
+      }
     }
 
-    
 
+
+    
+    // Función para eliminar la última opción del array de respuestas
     const eliminarOpcion = (index) => {
-        let temp = [ ...array ]
-            
-            temp = temp.slice(0, -1)
-            
-            setArray(temp)
+      let temp = [...array]; //Crea una copia del array actual      
+      temp = temp.slice(0, -1); //Elimina el último elemento del array temporal      
+      setArray(temp); // Actualiza el estado del array con la opción eliminada
     }
 
 
 
+    // Función para verificar los resultados y mostrar el puntaje
     const verificarResultados = () => {
-        let total = location.state.puntos;
-        
-        for(let i = 0; i < array.length; i ++){
-            let dataRespuesta = array[i]
-            let dataCorrecto = arrayPasos[i]
-            if(dataRespuesta.id === dataCorrecto.idRespuesta){
-                total = total + 1
-            }
-        }      
+      let total = location.state.puntos; //Inicializa el total con el puntaje actual del nivel
 
-        Swal.fire({
-            icon: 'success',
-            title: '¡Nivel 2 completado!',
-            text: 'Puntaje: ' + total,
-            confirmButtonText: "Siguiente nivel"
-    
-          }).then(() => {
-            actualizarParticipante(location.state.uid, total, 2)
-            history('/instrucciones3', {state: {puntos: total, uid: location.state.uid}})              
-          })
+      for (let i = 0; i < array.length; i++) {
+          let dataRespuesta = array[i]; // Obtiene la respuesta seleccionada por el usuario
+          let dataCorrecto = arrayPasos[i]; // Obtiene la respuesta correcta según los pasos
+          if (dataRespuesta.id === dataCorrecto.idRespuesta) {
+              total = total + 1; //Si la respuesta es correcta, incrementar el total de puntos
+          }
+      }
+
+      Swal.fire({ //Muestra un mensaje de éxito con el puntaje obtenido y navegar al siguiente nivel
+          icon: 'success',
+          title: '¡Nivel 2 completado!',
+          text: `Puntaje: ${puntuacion}`,
+          confirmButtonText: "Siguiente nivel"
+
+      }).then(() => {
+          actualizarParticipante(location.state.uid, total, 2); //Actualiza el puntaje en la API
+          history('/instrucciones3', { state: { puntos: total, uid: location.state.uid } }); //Navega al sigt nivel
+      });
     }
-
 
 
     return (
@@ -158,6 +179,26 @@ export default function Nivel2() {
             marginRight: "auto",
           }}
         >
+
+          {/* Temporizador */}
+          <Button
+            disabled={true}
+            style={{
+              backgroundColor: "transparent",
+              width: "67.5px",
+              height: "89.75px",
+              fontSize: "24.5px",
+              borderRadius: "9.75px",
+              borderColor: "red",
+              textAlign: "center",
+              marginTop: "14.5px",
+              border: "1.5px solid black",
+            }}
+            align="center"
+          >
+            <FcAlarmClock size={37} />
+            <p style={{ color: "black" }}>{tiempoRestante}</p>
+          </Button>
           <p
             style={{
               textAlign: "center",
@@ -168,7 +209,8 @@ export default function Nivel2() {
           >
             Pasos del subneting!
           </p>
-
+    
+          {/* Sección para mostrar los pasos y las respuestas seleccionadas */}
           <Row style={{ width: "98.5%" }}>
             <Col lg={6}>
               {arrayPasos.map((valor, index) => (
@@ -176,6 +218,7 @@ export default function Nivel2() {
                   <Col lg={2}>
                     <Row>
                       <Col>
+                        {/* Botón de pista */}
                         {index === array.length && (
                           <BsFillEyeFill
                             onClick={() => {
@@ -184,6 +227,7 @@ export default function Nivel2() {
                             color="green"
                           />
                         )}
+                        {/* Botón de eliminación de respuesta */}
                         {index >= 1 && index + 1 === array.length && (
                           <FiArchive
                             onClick={() => {
@@ -193,7 +237,6 @@ export default function Nivel2() {
                           />
                         )}
                       </Col>
-
                       <Col>
                         <p style={{ color: "black", fontWeight: "bold" }}>
                           {valor.text}
@@ -201,8 +244,9 @@ export default function Nivel2() {
                       </Col>
                     </Row>
                   </Col>
-
+    
                   <Col style={{ textAlign: "left" }}>
+                    {/* Mostrar la respuesta seleccionada */}
                     {array.length >= 1 && index < array.length && (
                       <p>{array[index].text}</p>
                     )}
@@ -210,11 +254,12 @@ export default function Nivel2() {
                 </Row>
               ))}
             </Col>
-
+    
+            {/* Sección para seleccionar las respuestas */}
             <Col lg={6}>
               {arrayPreguntasSet.map((pregunta, index) => (
                 <Button
-                  disabled={array.length == arrayPreguntasSet.length}
+                  disabled={array.length === arrayPreguntasSet.length}
                   style={{
                     width: "97.5%",
                     height: "45px",
@@ -230,7 +275,8 @@ export default function Nivel2() {
               ))}
             </Col>
           </Row>
-
+    
+          {/* Botón para terminar y verificar resultados */}
           {array.length === arrayPreguntasSet.length && (
             <Button
               onClick={() => {
@@ -243,5 +289,5 @@ export default function Nivel2() {
         </div>
       </>
     );
-
+    
 }

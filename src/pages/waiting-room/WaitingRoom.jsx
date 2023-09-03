@@ -19,6 +19,8 @@ export default function WaitingRoom() {
   const [estado, setEstado] = useState("");
   const [validando, setValidando] = useState(false);
 
+
+  // Función para validar la sala y redirigir a la instrucción del primer nivel
   const validarSalaPage = async () => {
     setValidando(true);
     let respuesta = await validarSala(sala);

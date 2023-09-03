@@ -3,7 +3,7 @@ import "./login.css";
 import Select from "react-select";
 import { useNavigate } from "react-router-dom";
 
-import { Container, Col, Row, Button } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 
 export default function Login() {
   const history = useNavigate();
@@ -15,10 +15,11 @@ export default function Login() {
     { value: "alumno", label: "Alumno" },
   ];
 
+  // Función para cambiar de pestaña según el rol seleccionado
   const cambiarPestana = () => {
-    if (cargo === "profesor") {
+    if (cargo === "profesor") { //Si el cargo es profesor, navega a la lista de usuarios
       history("/user-list");
-    } else {
+    } else {  //Si el cargo es alumno, navega a la sala de espera y pasa el nombre como estado
       history("/waiting-room", { state: { nombre: nombre } });
     }
   };
@@ -38,7 +39,7 @@ export default function Login() {
               type="text"
               placeholder="Ingrese su nombre: "
               id="inputLabel"
-              onChange={(text) => {
+              onChange={(text) => {  //Actualiza el estado del nombre cuando el valor cambia
                 setNombre(text.target.value);
               }}
             ></input>
@@ -64,17 +65,17 @@ export default function Login() {
                 style={{ width: "75%" }}
                 placeholder="Seleccione su rol..."
                 options={options}
-                onChange={(text) => {
+                onChange={(text) => { //Actualiza el estado del cargo cuando se selecciona una opción
                   setCargo(text.value);
                 }}
               />
             </div>
           </div>
 
-          <Button
-            disabled={nombre === "" || cargo === ""}
+          <Button 
+            disabled={nombre === "" || cargo === ""} //Deshabilita el botón si no se ha ingresado nombre o cargo
             onClick={() => {
-              cambiarPestana();
+              cambiarPestana();  //Cuando se hace clic en el botón, ejecuta la función cambiarPestana
             }}
             id="iniciar"
           >

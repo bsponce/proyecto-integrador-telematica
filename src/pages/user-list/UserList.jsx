@@ -1,63 +1,41 @@
+
 import React, { useState, useEffect } from "react";
-//import './login.css';
-import Select from "react-select";
-import { useNavigate } from "react-router-dom";
 import { verParticipantes, crearId } from "../../api/api";
 import Table from "react-bootstrap/Table";
 import { BsFillCloudCheckFill } from "react-icons/bs";
 
+
 export default function UserList() {
-  const history = useNavigate();
 
-  const [nombre, setNombre] = useState("");
-  const [cargo, setCargo] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [id, setId] = useState("");
-  const [conectados, setConectados] = useState([]);
-  const options = [
-    { value: "profesor", label: "Profesor" },
-    { value: "alumno", label: "Alumno" },
-  ];
+  const [loading, setLoading] = useState(false);  //Estado para indicar si se está cargando la lista de usuarios
+  const [id, setId] = useState("");   //Estado para almacenar el ID del usuario
+  const [conectados, setConectados] = useState([]); //Estado para almacenar la lista de usuarios conectados
 
+
+  // useEffect para generar un ID único al cargar el componente
   useEffect(() => {
-    // Update the document title using the browser API
-    let id = Math.floor(Math.random() * 999999);
-    let data = { ID: id.toString(), Estado: "E" };
-    setId(id);
-    crearId(data);
-
-    //console.log('aca: ', verParticipantes(id))
+    let id = Math.floor(Math.random() * 999999); //Genera un ID único aleatorio
+    let data = {ID: id.toString(), Estado:"E"}; //Crea un objeto d datos con el ID y el estado "E" (en línea)
+    setId(id); //Actualiza el estado del ID con el ID generado
+    crearId(data); //Llama a la función crearId con los datos generados
   }, []);
 
   const actualizarLista = async () => {
-    console.log("id: ", id);
+    setLoading(true);  //Establece el estado 'loading' como true, indicando q la carga está en progreso
 
-    setLoading(true);
-    setTimeout(async () => {
-      setConectados(await verParticipantes(id.toString()));
-      setLoading(false);
+    setTimeout(async () => { // Espera 1000 ms (1 seg) antes d realizar el siguiente bloque de código
+      //Llama a la func 'verParticipantes' con el ID convertido a cadena y espera su resultado. El resultado (lista de 
+      setConectados(await verParticipantes(id.toString())); //usuarios conectados) se establece en el estado 'conectados'
+      setLoading(false); //Establece el estado 'loading' nuevamente como falso, indicando que la carga ha terminado
     }, 1000);
   };
 
-  //   useEffect(() => {
-  //    ejecutar(id)
-  //   })
-
-  // const ejecutar = async (id) => {
-  //console.log('veamos: ', await verParticipantes(id))
 
   setInterval(async () => {
     //setConectados(await verParticipantes(id))
     //console.log('ejecutar.')
   }, 5000);
 
-  //setConectados(await verParticipantes(id))
-  /*
-      Run a function or set any state here
-  */
-  // }, 300000);
-
-  //console.log('conectados: ', conectados)
 
   return (
     <div
@@ -73,6 +51,7 @@ export default function UserList() {
         paddingBottom: "42.5px",
       }}
     >
+      {/* Título con el ID generado */}
       <p
         style={{
           fontSize: "24.5px",
@@ -84,6 +63,7 @@ export default function UserList() {
         Pin <b> {id} </b>
       </p>
 
+      {/* Botón para actualizar la lista */}
       <button
         style={{ borderRadius: "7.5px", marginTop: "12.5px" }}
         onClick={() => {
@@ -92,16 +72,21 @@ export default function UserList() {
       >
         Actualizar lista
       </button>
+      
+      {/* Si loading es true, muestra el spinner */}
       {loading ? (
         <div>
           <img
             src="https://www.superiorlawncareusa.com/wp-content/uploads/2020/05/loading-gif-png-5.gif"
+            alt=""
             style={{ width: "175.5px", marginTop: "42.5px" }}
           />
         </div>
       ) : (
+        // Si loading es false, muestra la lista de usuarios conectados
         <div>
           {conectados.length > 0 ? (
+            // Si hay usuarios conectados
             <div style={{ marginTop: "34.5px", width: "92.5%" }}>
               <Table striped bordered hover style={{ borderColor: "black" }}>
                 <thead>
@@ -115,11 +100,13 @@ export default function UserList() {
                   </tr>
                 </thead>
                 <tbody>
+                  {/* Mapeo de usuarios conectados para mostrar en la tabla */}
                   {conectados.map((dato, index) => (
                     <tr>
                       <td style={{ textAlign: "center" }}>{index + 1}</td>
                       <td style={{ textAlign: "center" }}>{dato.Usuario}</td>
                       <td style={{ textAlign: "center" }}>
+                        {/* Icono si el usuario completó el nivel 1 */}
                         {dato.Nivel < 1 ? (
                           "-"
                         ) : (
@@ -127,6 +114,7 @@ export default function UserList() {
                         )}
                       </td>
                       <td style={{ textAlign: "center" }}>
+                        {/* Icono si el usuario completó el nivel 2 */}
                         {dato.Nivel < 2 ? (
                           "-"
                         ) : (
@@ -134,6 +122,7 @@ export default function UserList() {
                         )}
                       </td>
                       <td style={{ textAlign: "center" }}>
+                        {/* Icono si el usuario completó el nivel 3 */}
                         {dato.Nivel < 3 ? (
                           "-"
                         ) : (
@@ -141,6 +130,7 @@ export default function UserList() {
                         )}
                       </td>
                       <td style={{ textAlign: "center" }}>
+                        {/* Muestra la calificación si está disponible */}
                         {dato.Calificacion === -5
                           ? "Aún no termina"
                           : dato.Calificacion}
@@ -151,6 +141,7 @@ export default function UserList() {
               </Table>
             </div>
           ) : (
+            // Si no hay usuarios conectados, muestra un mensaje
             <p style={{ marginTop: "34.5px", fontSize: "19.5px" }}>
               No hay ningún estudiante en la sala..
             </p>
@@ -159,4 +150,5 @@ export default function UserList() {
       )}
     </div>
   );
+  
 }

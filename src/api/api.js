@@ -26,20 +26,20 @@ const db = getFirestore(app);
 
 //Busca los documentos en la colección "Sesiones" d Firestore q tengan un campo "ID" igual al valor proporcionado 
 export const validarSala = async(id) => {   //Luego recopila y retorna los datos d esos documentos en un arreglo
-    const collection_ref =  collection(db, "Sesiones")
-    const query_ref = query(collection_ref, where("ID", "==", id))
-    const datos = await getDocs(query_ref)
+    const collection_ref =  collection(db, "Sesiones") //Crea una referencia a la colección "Sesiones"
+    const query_ref = query(collection_ref, where("ID", "==", id)) //Crea una consulta para buscar docs q coincidan con el ID proporcionado
+    const datos = await getDocs(query_ref) //Obtiene los datos de los docs q coinciden con la consulta
 
     let dataFinal = []
 
-    datos.forEach((doc) => {
+    datos.forEach((doc) => {  //Itera sobre los documentos obtenidos y agrega sus datos al arreglo
       dataFinal.push(doc.data())
     });
 
     return dataFinal;
 }
 
-//agrega un nuevo documento con los datos proporcionados a la colección "Participantes" en la bd Firestore
+//agrega un nuevo doc con los datos proporcionados a la colección "Participantes" en la bd Firestore
 export const agregarUsuarioParticipante = async(data) => {
   let dataRef = await addDoc(collection(db, "Participantes"), data);
   return dataRef.id  //retorna el ID del documento recién agregado
@@ -53,7 +53,6 @@ export const crearId = async(data) => {
 
 //se utiliza para obtener los datos de los participantes q tienen un campo "ID" igual al valor proporcionado.
 export const verParticipantes = async(id) => {
-
   const collection_ref =  collection(db, "Participantes")
     const query_ref = query(collection_ref, where("ID", "==", id))
     const datos = await getDocs(query_ref)
@@ -64,19 +63,15 @@ export const verParticipantes = async(id) => {
       dataFinal.push(doc.data())
     });
 
-    console.log('aca: ', dataFinal)
-
     return dataFinal;
-
-  //return [{Usuario: 'Stalyn'}]
 }
 
 
 //se utiliza para actualizar los valores de nivel y calificación de un doc específico de la colección "Participantes"
 export const actualizarParticipante = async(id, calificacion, nivel) => {
   console.log('datos: ', id, calificacion, nivel)
-  const docRef = doc(db, 'Participantes', id)
-  await updateDoc(docRef, {
+  const docRef = doc(db, 'Participantes', id) //Obtiene una referencia al doc específico del participante mediante su ID
+  await updateDoc(docRef, {  //Actualiza el documento con los nuevos valores de nivel y calificación
     Nivel: nivel,
     Calificacion: calificacion
   })
