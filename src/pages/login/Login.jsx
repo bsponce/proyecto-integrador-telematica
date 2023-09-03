@@ -39,7 +39,8 @@ export default function Login() {
               type="text"
               placeholder="Ingrese su nombre: "
               id="inputLabel"
-              onChange={(text) => {  //Actualiza el estado del nombre cuando el valor cambia
+              onChange={(text) => {
+                //Actualiza el estado del nombre cuando el valor cambia
                 setNombre(text.target.value);
               }}
             ></input>
@@ -65,19 +66,25 @@ export default function Login() {
                 style={{ width: "75%" }}
                 placeholder="Seleccione su rol..."
                 options={options}
-                onChange={(text) => { //Actualiza el estado del cargo cuando se selecciona una opción
+                onChange={(text) => {
+                  //Actualiza el estado del cargo cuando se selecciona una opción
                   setCargo(text.value);
                 }}
               />
             </div>
           </div>
 
-          <Button 
+          <Button
             disabled={nombre === "" || cargo === ""} //Deshabilita el botón si no se ha ingresado nombre o cargo
             onClick={() => {
-              cambiarPestana();  //Cuando se hace clic en el botón, ejecuta la función cambiarPestana
+              cambiarPestana(); //Cuando se hace clic en el botón, ejecuta la función cambiarPestana
             }}
             id="iniciar"
+            style={{
+              borderColor: "transparent",
+              fontWeight: "bold",
+              backgroundColor: "#404F84 ",
+            }}
           >
             INICIAR
           </Button>

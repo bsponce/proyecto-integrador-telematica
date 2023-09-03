@@ -87,6 +87,11 @@ export default function WaitingRoom() {
               validarSalaPage();
             }}
             id="iniciar"
+            style={{
+              borderColor: "transparent",
+              fontWeight: "bold",
+              backgroundColor: "#404F84 ",
+            }}            
           >
             INICIAR
           </Button>
