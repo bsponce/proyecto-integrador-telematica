@@ -1,15 +1,13 @@
 import React, { useState } from "react";
 //import './login.css';
-import Select from "react-select";
 import { useNavigate, useLocation } from "react-router-dom";
 import { validarSala, agregarUsuarioParticipante } from "../../api/api";
 import Swal from "sweetalert2/dist/sweetalert2.js";
 
-import { Container, Col, Row, Button } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 
 import "sweetalert2/src/sweetalert2.scss";
 
-import Table from "react-bootstrap/Table";
 
 export default function WaitingRoom() {
   const history = useNavigate();

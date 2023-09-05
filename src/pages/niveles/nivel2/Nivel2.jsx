@@ -30,7 +30,7 @@ export default function Nivel2() {
     const location = useLocation()
     const history = useNavigate()
 
-    const [tiempoRestante, setTiempoRestante] = useState(20);
+    const [tiempoRestante, setTiempoRestante] = useState(50);
     const [puntuacion, setPuntuacion] = useState(location.state.puntos);
 
 

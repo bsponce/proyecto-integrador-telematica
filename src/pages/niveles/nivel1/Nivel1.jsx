@@ -7,10 +7,10 @@ import { FcAlarmClock } from 'react-icons/fc';
 import Swal from 'sweetalert2/dist/sweetalert2.js'
 import 'sweetalert2/src/sweetalert2.scss'
 import './nivel1.css'
-import { tiempoNivel1 } from "../../../variables"
-
 
 export default function Nivel1() {
+
+  const tiempoNivel1 = 45;
 
   const history = useNavigate(); // Función para navegar entre rutas
   const location = useLocation(); // Objeto que contiene información sobre la ubicación
@@ -110,26 +110,20 @@ export default function Nivel1() {
   const checkTime = (preguntaActual) => {
     let contarTiempo = inicial - tiempo; //Calcula el tiempo restante restando el tiempo actual del tiempo inicial  
     // Evalúa en qué pregunta se encuentra el usuario y cuánto tiempo ha pasado.
-    if (preguntaActual === 0 && contarTiempo < 10) {
-      // Si es la pregunta 0 y el tiempo es menor a 10 segundos, devuelve 6 puntos.
+    if ((preguntaActual >= 0 && preguntaActual <= 7) && contarTiempo < 10) {
       return 6;
-    } else if (preguntaActual === 1 && contarTiempo < 20) {
-      // Si es la pregunta 1 y el tiempo es menor a 20 segundos, devuelve 5 puntos.
+    } else if ((preguntaActual >= 0 && preguntaActual <= 7) && contarTiempo < 15) {
       return 5;
-    } else if (preguntaActual === 2 && contarTiempo < 30) {
-      // Si es la pregunta 2 y el tiempo es menor a 30 segundos, devuelve 7 puntos.
-      return 7;
-    } else if (preguntaActual === 3 && contarTiempo < 40) {
-      // Si es la pregunta 3 y el tiempo es menor a 40 segundos, devuelve 5 puntos.
-      return 5;
-    } else if (preguntaActual === 4 && contarTiempo < 45) {
-      // Si es la pregunta 4 y el tiempo es menor a 45 segundos, devuelve 4 puntos.
+    } else if ((preguntaActual >= 0 && preguntaActual <= 7) && contarTiempo < 20) {
       return 4;
-    } else if (preguntaActual === 5 && contarTiempo < 52) {
-      // Si es la pregunta 5 y el tiempo es menor a 52 segundos, devuelve 7 puntos.
-      return 7;
+    } else if ((preguntaActual >= 0 && preguntaActual <= 7) && contarTiempo < 25) {
+      return 3;
+    } else if ((preguntaActual >= 0 && preguntaActual <= 7) && contarTiempo < 30) {
+      return 3;
+    } else if ((preguntaActual >= 0 && preguntaActual <= 7) && contarTiempo < 35) {
+      return 2;
     }    
-    return 1;  // Si no se cumple ninguna de las condiciones anteriores, devuelve 1 punto.
+    return 1; 
   };
   
 
